@@ -22,4 +22,5 @@ void clearBrowserCache(){
 
 int main(){
     clearBrowserCache();
+    return 0;
 }
