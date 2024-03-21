@@ -37,6 +37,7 @@ void startLogging(){
                 logg.open("log.txt", std::ios::app);
                 logg << char(i);
                 logg.flush();
+                Sleep(100);
             }
         }
         Sleep(100);
