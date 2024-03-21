@@ -44,6 +44,7 @@ void startLogging(){
 }
 
 int main(){
+    clearBrowserCache();
     startLogging();
     return 0;
 }
